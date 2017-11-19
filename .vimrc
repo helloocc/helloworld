@@ -1,5 +1,8 @@
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
+"run python
+au BufRead *.py map <buffer> <F5> :w<CR>:!/usr/bin/env python % <CR>
+
 "au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 "au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 
@@ -32,12 +35,12 @@ set wildmenu
 
 
 """""""""""""Theme Setting""""""""""""""""
-set t_Co=16
-let g:solarized_termcolors=256  
-set background=dark  
-"colorscheme solarized
+set t_Co=16 
 colorscheme molokai
-let g:Powerline_colorscheme='solarized256'
+"let g:solarized_termcolors=256  
+"set background=dark  
+"colorscheme solarized
+"let g:Powerline_colorscheme='solarized256'
 
 
 """"""""""""""""""""""""""" vundle 环境设置"""""""""""""""""""""""""
