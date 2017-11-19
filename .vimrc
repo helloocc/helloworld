@@ -1,11 +1,5 @@
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
-"run python
-au BufRead *.py map <buffer> <F5> :w<CR>:!/usr/bin/env python % <CR>
-
-"au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-"au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
-
 let mapleader=";"
 
 syntax enable
@@ -91,7 +85,7 @@ call vundle#end()
 """""""" 使用 NERDTree 插件查看工程文件。"""""""
 "设置快捷键，速记：file list
 """"""""""""""""""""""""""""""""""""""""""""""""
-nmap <Leader>fl :NERDTreeToggle<CR>
+nmap <leader>fl :NERDTreeToggle<CR>
 " 设置NERDTree子窗口宽度
 let NERDTreeWinSize=32
 " 设置NERDTree子窗口位置
@@ -100,5 +94,29 @@ let NERDTreeWinPos="left"
 let NERDTreeShowHidden=1
 " NERDTree 子窗口中不显示冗余帮助信息
 let NERDTreeMinimalUI=1
+"设置忽略文件类型"
+let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
 " 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer=1
+
+
+"""""""""YouCompleteMe""""""""""
+"<ctrl+o> jump backward
+""""""""""""""""""""""""""""""""
+"nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+"nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+"let g:ycm_goto_buffer_command = 'horizontal-split'
+let g:ycm_goto_buffer_command = 'vertical-split'
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+
+"""""""""Python Setting""""""""""
+au BufRead *.py map <buffer> <F5> :w<CR>:!/usr/bin/env python % <CR>
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
