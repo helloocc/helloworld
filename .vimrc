@@ -15,7 +15,7 @@ set laststatus=2
 set ruler
 " 高亮显示当前行/列
 set cursorline
-"set cursorcolumn
+set cursorcolumn
 " 高亮显示搜索结果
 set hlsearch
 " 开启实时搜索功能
@@ -26,16 +26,17 @@ set ignorecase
 set nocompatible
 " vim 自身命令行模式智能补全
 set wildmenu
-
+set backspace=indent,eol,start
 
 """""""""""""Theme Setting""""""""""""""""
-set t_Co=16 
-colorscheme molokai
-"let g:solarized_termcolors=256  
-"set background=dark  
-"colorscheme solarized
-"let g:Powerline_colorscheme='solarized256'
-
+set t_Co=256
+set background=dark  
+"colorscheme molokai
+"let g:solarized_termcolors=16
+colorscheme solarized
+"colorscheme gruvbox
+"let g:gruvbox_termcolors=256
+"colorscheme zenburn
 
 """"""""""""""""""""""""""" vundle 环境设置"""""""""""""""""""""""""
 " 安装命令 
@@ -54,6 +55,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
+Plugin 'morhetz/gruvbox'
 " Plugin 'vim-scripts/phd'
 " Plugin 'Lokaltog/vim-powerline'
 " Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -70,7 +72,7 @@ Plugin 'tomasr/molokai'
 " Plugin 'scrooloose/nerdcommenter'
 " Plugin 'vim-scripts/DrawIt'
 " Plugin 'SirVer/ultisnips'
- Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 " Plugin 'derekwyatt/vim-protodef'
  Plugin 'scrooloose/nerdtree'
 " Plugin 'fholgado/minibufexpl.vim'
@@ -107,7 +109,7 @@ let NERDTreeAutoDeleteBuffer=1
 "nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 "let g:ycm_goto_buffer_command = 'horizontal-split'
 let g:ycm_goto_buffer_command = 'vertical-split'
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
 """""""""Python Setting""""""""""

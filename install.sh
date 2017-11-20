@@ -1,9 +1,6 @@
 #!/bin/bash
 set -xe
 
-mkdir ~/my_env
-cd ~/my_env
-
 #### vim
 yum install python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
 git clone https://github.com/vim/vim.git
@@ -27,7 +24,7 @@ cp .tmux/.tmux.conf.local .
 
 yum install zsh
 #via curl
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+#sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 #via wget
-#sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 

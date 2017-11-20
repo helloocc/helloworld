@@ -27,10 +27,18 @@ cp ~/.vim/bundle/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/
 git clone https://github.com/gpakosz/.tmux.git
 ln -s -f .tmux/.tmux.conf
 cp .tmux/.tmux.conf.local .
+
+set-option -g allow-rename on
 ```
 
 #### zsh
 ```
 yum install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+
+#### YouCompleteme
+```
+yum install epel-release
+yum install python-devel libffi-devel gcc openssl-devel git python-pip
 ```
