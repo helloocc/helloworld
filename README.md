@@ -18,6 +18,7 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 #### Theme
 ```
+cp ~/.vim/bundle/gruvbox/colors/gruvbox.vim  ~/.vim/colors 
 cp ~/.vim/bundle/molokai/colors/molokai.vim ~/.vim/colors/
 cp ~/.vim/bundle/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/
 ```
