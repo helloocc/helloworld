@@ -1,6 +1,7 @@
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 let mapleader=";"
+inoremap ;<Space> <Esc>
 
 syntax enable
 syntax on
