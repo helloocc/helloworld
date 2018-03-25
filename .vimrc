@@ -1,7 +1,9 @@
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 let mapleader=";"
-inoremap ;<Space> <Esc>
+inoremap <leader><Space> <Esc>
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 syntax enable
 syntax on
@@ -9,22 +11,16 @@ syntax on
 set encoding=utf8
 set fileencoding=utf8
 set fileencodings=utf8,gbk,gb2312,big5
-set number " 总是显示状态栏
+set number
 set laststatus=2
-" 显示光标当前位置
 set ruler
-" 高亮显示当前行/列
 set cursorline
 set cursorcolumn
-" 高亮显示搜索结果
-set hlsearch
-" 开启实时搜索功能
+set hlsearch 
 set incsearch
-" 搜索时大小写不敏感
 set ignorecase
 " 关闭兼容模式
 set nocompatible
-" vim 自身命令行模式智能补全
 set wildmenu
 set backspace=indent,eol,start
 
@@ -42,9 +38,7 @@ let g:gruvbox_termcolors=256
 
 """""""" 使用 NERDTree 插件查看工程文件。"""""""
 nmap <leader>t :NERDTreeToggle<CR>
-" 设置NERDTree子窗口宽度
 let NERDTreeWinSize=32
-" 设置NERDTree子窗口位置
 let NERDTreeWinPos="left"
 " 显示隐藏文件
 let NERDTreeShowHidden=1
@@ -67,7 +61,7 @@ nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
 """""""""""CtrlP"""""""""""""""
-let g:ctrlp_map = '<leader>p'
+let g:ctrlp_map = '<leader>f'
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>r :CtrlPMRU<CR>
 let g:ctrlp_working_path_mode = 'ra'
@@ -79,8 +73,25 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 
+"""""""""""Easy-motion"""""""""""""""
+" <Leader>m{char} to move to {char}
+ map  <Leader>m <Plug>(easymotion-bd-f)
+ nmap <Leader>m <Plug>(easymotion-overwin-f)
+" s{char}{char} to move to {char}{char}
+ nmap s <Plug>(easymotion-overwin-f2)
+" Move to word
+ map  <Leader>w <Plug>(easymotion-bd-w)
+ nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+
 """""""""""FlyGrep"""""""""""""""
 nnoremap <leader>s :FlyGrep<cr>
+
+
+"""""""""""Tagbar"""""""""""""""
+nnoremap <leader>o :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+let tagbar_width=32 
 
 
 """""""""Python Setting""""""""""
@@ -120,7 +131,7 @@ Plugin 'morhetz/gruvbox'
 " Plugin 'derekwyatt/vim-fswitch'
 " Plugin 'kshenoy/vim-signature'
 " Plugin 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
-" Plugin 'majutsushi/tagbar'
+ Plugin 'majutsushi/tagbar'
 " Plugin 'vim-scripts/indexer.tar.gz'
 " Plugin 'vim-scripts/DfrankUtil'
 " Plugin 'vim-scripts/vimprj'
@@ -129,7 +140,7 @@ Plugin 'morhetz/gruvbox'
 " Plugin 'scrooloose/nerdcommenter'
 " Plugin 'vim-scripts/DrawIt'
 " Plugin 'SirVer/ultisnips'
-" Plugin 'Valloric/YouCompleteMe'
+ Plugin 'Valloric/YouCompleteMe'
 " Plugin 'derekwyatt/vim-protodef'
  Plugin 'scrooloose/nerdtree'
 " Plugin 'fholgado/minibufexpl.vim'
