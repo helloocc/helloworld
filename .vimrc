@@ -1,5 +1,9 @@
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
+autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl>\#-*- coding=utf8 -*-\"|$
+autocmd BufNewFile *.sh 0put =\"#!/bin/bash\"|$
+autocmd BufNewfile * normal G
+
 let mapleader=";"
 inoremap <leader><Space> <Esc>
 nnoremap <C-h> <C-w>h
@@ -7,7 +11,6 @@ nnoremap <C-l> <C-w>l
 
 syntax enable
 syntax on
-
 set encoding=utf8
 set fileencoding=utf8
 set fileencodings=utf8,gbk,gb2312,big5
@@ -19,8 +22,6 @@ set cursorcolumn
 set hlsearch 
 set incsearch
 set ignorecase
-" 关闭兼容模式
-set nocompatible
 set wildmenu
 set backspace=indent,eol,start
 
@@ -116,7 +117,7 @@ au BufNewFile,BufRead *.py
 " vundle 管理的插件列表必须位于 vundle#begin() 和 vundle#end() 之间
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 filetype off
-filetype plugin indent on
+set nocompatible
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
@@ -140,7 +141,7 @@ Plugin 'morhetz/gruvbox'
 " Plugin 'scrooloose/nerdcommenter'
 " Plugin 'vim-scripts/DrawIt'
 " Plugin 'SirVer/ultisnips'
- Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 " Plugin 'derekwyatt/vim-protodef'
  Plugin 'scrooloose/nerdtree'
 " Plugin 'fholgado/minibufexpl.vim'
@@ -152,3 +153,4 @@ Plugin 'morhetz/gruvbox'
 " Plugin 'suan/vim-instant-markdown'
 " Plugin 'lilydjwg/fcitx.vim'
 call vundle#end()
+filetype plugin indent on
