@@ -103,6 +103,10 @@ nnoremap <leader>o :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 let tagbar_width=32 
 
+""""""""indentLine settings""""""    
+let g:indentLine_char = "¦"
+let g:indentLine_enabled = 1
+let g:autopep8_disable_show_diff=1
 
 """""""""Python Setting""""""""""
 au BufRead *.py map <buffer> <F5> :w<CR>:!/usr/bin/env python % <CR>
@@ -131,9 +135,15 @@ set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdtree'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'morhetz/gruvbox'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'wsdjeg/FlyGrep.vim'
+Plugin 'Yggdroot/indentLine'
 " Plugin 'vim-scripts/phd'
 " Plugin 'Lokaltog/vim-powerline'
 " Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -141,7 +151,6 @@ Plugin 'morhetz/gruvbox'
 " Plugin 'derekwyatt/vim-fswitch'
 " Plugin 'kshenoy/vim-signature'
 " Plugin 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
- Plugin 'majutsushi/tagbar'
 " Plugin 'vim-scripts/indexer.tar.gz'
 " Plugin 'vim-scripts/DfrankUtil'
 " Plugin 'vim-scripts/vimprj'
@@ -152,13 +161,9 @@ Plugin 'morhetz/gruvbox'
 " Plugin 'SirVer/ultisnips'
 " Plugin 'Valloric/YouCompleteMe'
 " Plugin 'derekwyatt/vim-protodef'
- Plugin 'scrooloose/nerdtree'
 " Plugin 'fholgado/minibufexpl.vim'
 " Plugin 'gcmt/wildfire.vim'
 " Plugin 'sjl/gundo.vim'
- Plugin 'Lokaltog/vim-easymotion'
- Plugin 'kien/ctrlp.vim'
- Plugin 'wsdjeg/FlyGrep.vim'
 " Plugin 'suan/vim-instant-markdown'
 " Plugin 'lilydjwg/fcitx.vim'
 call vundle#end()
