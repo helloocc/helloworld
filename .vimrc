@@ -5,10 +5,18 @@ autocmd BufNewFile *.sh 0put =\"#!/bin/bash\"|$
 autocmd BufNewfile * normal G
 
 let mapleader=";"
+set pastetoggle=<F9>
 inoremap <leader><Space> <Esc>
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+set foldenable
+set foldmethod=indent
+set foldcolumn=0
+setlocal foldlevel=1
+set foldlevelstart=99
+nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+ 
 syntax enable
 syntax on
 set encoding=utf8
@@ -54,6 +62,7 @@ let NERDTreeAutoDeleteBuffer=1
 """""""""YouCompleteMe""""""""""
 "<ctrl+o> jump backward
 """"""""""""""""""""""""""""""""
+set runtimepath+=~/.vim/bundle/YouCompleteMe
 "nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 "nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 "let g:ycm_goto_buffer_command = 'horizontal-split'
