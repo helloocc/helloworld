@@ -43,26 +43,48 @@ set backspace=indent,eol,start
 """""""""""""Theme Setting""""""""""""""""
 set t_Co=256
 set background=dark  
-"colorscheme molokai
-"let g:solarized_termcolors=16
-"colorscheme solarized
 colorscheme gruvbox
 let g:gruvbox_termcolors=256
+"colorscheme solarized
+"let g:solarized_termcolors=16
 "colorscheme zenburn
+"colorscheme molokai
 
 
-"""""""" 使用 NERDTree 插件查看工程文件。"""""""
+"""""""""""""""" NERDTree""""""""""""""""""
+"u 显示上级目录
+"C 进入目录或者文件所在目录
+"gt 切换tab
+"i 在新窗口打开
+"""""""""""""""""""""""""""""""""""""""""""""""
 nmap <leader>t :NERDTreeToggle<CR>
-let NERDTreeWinSize=32
+let NERDTreeWinSize=28
 let NERDTreeWinPos="left"
-" 显示隐藏文件
 let NERDTreeShowHidden=1
-" NERDTree 子窗口中不显示冗余帮助信息
 let NERDTreeMinimalUI=1
-"设置忽略文件类型"
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
-" 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer=1
+
+
+"""""""""""""""""""NERDComment""""""""""""""""""
+"<leader>c<space> 自动判断添加或取消注释
+"<leader>cc 添加注释
+"<leader>cu 取消注释
+"<leader>cy 注释并复制
+"<leader>cs 美化版注释
+"""""""""""""""""""""""""""""""""""""""""""""""
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
 
 
 """""""""YouCompleteMe""""""""""
@@ -79,7 +101,6 @@ nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 """""""""""CtrlP"""""""""""""""
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_cmd = 'CtrlP'
-map <leader>r :CtrlPMRU<CR>
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
@@ -91,8 +112,8 @@ let g:ctrlp_custom_ignore = {
 
 """""""""""Easy-motion"""""""""""""""
 " <Leader>m{char} to move to {char}
- map  <Leader>m <Plug>(easymotion-bd-f)
- nmap <Leader>m <Plug>(easymotion-overwin-f)
+" map  <Leader>m <Plug>(easymotion-bd-f)
+"; nmap <Leader>m <Plug>(easymotion-overwin-f)
 " s{char}{char} to move to {char}{char}
  nmap s <Plug>(easymotion-overwin-f2)
 " Move to word
@@ -107,15 +128,21 @@ nnoremap <leader>s :FlyGrep<cr>
 """""""""""Tagbar"""""""""""""""
 nnoremap <leader>o :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
-let tagbar_width=32 
+let tagbar_width=28 
+ 
 
 """"""""indentLine settings""""""    
 let g:indentLine_char = "¦"
 let g:indentLine_enabled = 1
 let g:autopep8_disable_show_diff=1
 
+
 """""""""Python Setting""""""""""
-au BufRead *.py map <buffer> <F5> :w<CR>:!/usr/bin/env python % <CR>
+"V Mode:< 向外缩进
+"V Mode:> 向内缩进
+"""""""""""""""""""""""""""""""""
+autocmd FileType python noremap <buffer> <leader>p :call Autopep8()<CR>
+"au BufRead *.py noremap <buffer> <F5> :w<CR>:!/usr/bin/env python % <CR>
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
@@ -124,6 +151,12 @@ au BufNewFile,BufRead *.py
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix |
+
+
+"""""""""""""""""""""""""""Quick Run"""""""""""""""""""""""""
+let g:quickrun_no_default_key_mappings = 1
+nmap <Leader>r <Plug>(quickrun)
+map <F5> :QuickRun<CR>
 
 
 """"""""""""""""""""""""""" vundle 环境设置"""""""""""""""""""""""""
@@ -144,12 +177,17 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'morhetz/gruvbox'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'wsdjeg/FlyGrep.vim'
 Plugin 'Yggdroot/indentLine'
+Plugin 'tell-k/vim-autopep8'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'thinca/vim-quickrun'
+" Plugin 'Valloric/YouCompleteMe'
 " Plugin 'vim-scripts/phd'
 " Plugin 'Lokaltog/vim-powerline'
 " Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -162,10 +200,8 @@ Plugin 'Yggdroot/indentLine'
 " Plugin 'vim-scripts/vimprj'
 " Plugin 'dyng/ctrlsf.vim'
 " Plugin 'terryma/vim-multiple-cursors'
-" Plugin 'scrooloose/nerdcommenter'
 " Plugin 'vim-scripts/DrawIt'
 " Plugin 'SirVer/ultisnips'
-" Plugin 'Valloric/YouCompleteMe'
 " Plugin 'derekwyatt/vim-protodef'
 " Plugin 'fholgado/minibufexpl.vim'
 " Plugin 'gcmt/wildfire.vim'
