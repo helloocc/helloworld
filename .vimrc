@@ -9,6 +9,12 @@ set pastetoggle=<F9>
 inoremap <leader><Space> <Esc>
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+inoremap <C-d> <DELETE>
+
 
 set foldenable
 set foldmethod=indent
