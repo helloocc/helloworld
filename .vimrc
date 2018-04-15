@@ -1,5 +1,4 @@
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
-
 autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl>\#-*- coding=utf8 -*-\"|$
 autocmd BufNewFile *.sh 0put =\"#!/bin/bash\"|$
 autocmd BufNewfile * normal G
@@ -16,7 +15,6 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap <C-d> <DELETE>
-
 
 set foldenable
 set foldmethod=indent
@@ -40,6 +38,61 @@ set incsearch
 set ignorecase
 set wildmenu
 set backspace=indent,eol,start
+
+
+""""""""""""""""""""""""""" vundle 环境设置"""""""""""""""""""""""""
+" 安装命令
+" :PluginInstall
+" 删除命令，首先从配置文件中删除，然后执行下面命令
+" :PluginClean
+" 更新命令
+" :PluginUpdate
+" vundle 管理的插件列表必须位于 vundle#begin() 和 vundle#end() 之间
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+filetype off
+set nocompatible
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
+Plugin 'morhetz/gruvbox'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'wsdjeg/FlyGrep.vim'
+Plugin 'Yggdroot/indentLine'
+Plugin 'tell-k/vim-autopep8'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'thinca/vim-quickrun'
+Plugin 'SirVer/ultisnips'
+Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'vim-syntastic/syntastic'
+"Plugin 'airblade/vim-gitgutter'
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'vim-scripts/phd'
+" Plugin 'Lokaltog/vim-powerline'
+" Plugin 'nathanaelkane/vim-indent-guides'
+" Plugin 'derekwyatt/vim-fswitch'
+" Plugin 'kshenoy/vim-signature'
+" Plugin 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
+" Plugin 'vim-scripts/indexer.tar.gz'
+" Plugin 'vim-scripts/DfrankUtil'
+" Plugin 'vim-scripts/vimprj'
+" Plugin 'dyng/ctrlsf.vim'
+" Plugin 'terryma/vim-multiple-cursors'
+" Plugin 'vim-scripts/DrawIt'
+" Plugin 'derekwyatt/vim-protodef'
+" Plugin 'fholgado/minibufexpl.vim'
+" Plugin 'gcmt/wildfire.vim'
+" Plugin 'sjl/gundo.vim'
+" Plugin 'suan/vim-instant-markdown'
+" Plugin 'lilydjwg/fcitx.vim'
+call vundle#end()
+filetype plugin indent on
 
 
 """""""""""""Theme Setting""""""""""""""""
@@ -75,7 +128,6 @@ let NERDTreeAutoDeleteBuffer=1
 "<leader>cy 注释并复制
 "<leader>cs 美化版注释
 """""""""""""""""""""""""""""""""""""""""""""""
-" Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
@@ -134,6 +186,21 @@ let g:indentLine_enabled = 1
 let g:autopep8_disable_show_diff=1
 
 
+"""""""""""""""""""""""""""UltiSnip"""""""""""""""""""""""""
+let g:UltiSnipsExpandTrigger="<leader>a"
+let g:UltiSnipsEditSplit="vertical"
+
+
+"""""""""""""""""""""""""""Syntastic"""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
 """""""""Python Setting""""""""""
 "V Mode:< 向外缩进
 "V Mode:> 向内缩进
@@ -180,62 +247,3 @@ func! CompileRunGcc()
         exec "!firefox %.html &"
     endif
 endfunc
-
-
-"""""""""""""""""""""""""""UltiSnip"""""""""""""""""""""""""
-let g:UltiSnipsExpandTrigger="<leader>a"
-let g:UltiSnipsEditSplit="vertical"
-
-
-""""""""""""""""""""""""""" vundle 环境设置"""""""""""""""""""""""""
-" 安装命令
-" :PluginInstall
-" 删除命令，首先从配置文件中删除，然后执行下面命令
-" :PluginClean
-" 更新命令
-" :PluginUpdate
-" vundle 管理的插件列表必须位于 vundle#begin() 和 vundle#end() 之间
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype off
-set nocompatible
-set rtp+=~/.vim/bundle/Vundle.vim
-
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
-Plugin 'morhetz/gruvbox'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'wsdjeg/FlyGrep.vim'
-Plugin 'Yggdroot/indentLine'
-Plugin 'tell-k/vim-autopep8'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'thinca/vim-quickrun'
-Plugin 'SirVer/ultisnips'
-Plugin 'bronson/vim-trailing-whitespace'
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'vim-scripts/phd'
-" Plugin 'Lokaltog/vim-powerline'
-" Plugin 'octol/vim-cpp-enhanced-highlight'
-" Plugin 'nathanaelkane/vim-indent-guides'
-" Plugin 'derekwyatt/vim-fswitch'
-" Plugin 'kshenoy/vim-signature'
-" Plugin 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
-" Plugin 'vim-scripts/indexer.tar.gz'
-" Plugin 'vim-scripts/DfrankUtil'
-" Plugin 'vim-scripts/vimprj'
-" Plugin 'dyng/ctrlsf.vim'
-" Plugin 'terryma/vim-multiple-cursors'
-" Plugin 'vim-scripts/DrawIt'
-" Plugin 'derekwyatt/vim-protodef'
-" Plugin 'fholgado/minibufexpl.vim'
-" Plugin 'gcmt/wildfire.vim'
-" Plugin 'sjl/gundo.vim'
-" Plugin 'suan/vim-instant-markdown'
-" Plugin 'lilydjwg/fcitx.vim'
-call vundle#end()
-filetype plugin indent on
