@@ -9,6 +9,8 @@ set pastetoggle=<F9>
 inoremap <leader><Space> <Esc>
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
@@ -22,7 +24,7 @@ set foldcolumn=0
 setlocal foldlevel=1
 set foldlevelstart=99
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
- 
+
 syntax enable
 syntax on
 set encoding=utf8
@@ -33,7 +35,7 @@ set laststatus=2
 set ruler
 set cursorline
 set cursorcolumn
-set hlsearch 
+set hlsearch
 set incsearch
 set ignorecase
 set wildmenu
@@ -42,7 +44,7 @@ set backspace=indent,eol,start
 
 """""""""""""Theme Setting""""""""""""""""
 set t_Co=256
-set background=dark  
+set background=dark
 colorscheme gruvbox
 let g:gruvbox_termcolors=256
 "colorscheme solarized
@@ -75,15 +77,10 @@ let NERDTreeAutoDeleteBuffer=1
 """""""""""""""""""""""""""""""""""""""""""""""
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
 let g:NERDCompactSexyComs = 1
-" Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
-" Set a language to use its alternate delimiters by default
 let g:NERDAltDelims_java = 1
-" Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
-" Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
 
@@ -115,10 +112,10 @@ let g:ctrlp_custom_ignore = {
 " map  <Leader>m <Plug>(easymotion-bd-f)
 "; nmap <Leader>m <Plug>(easymotion-overwin-f)
 " s{char}{char} to move to {char}{char}
- nmap s <Plug>(easymotion-overwin-f2)
-" Move to word
- map  <Leader>w <Plug>(easymotion-bd-w)
- nmap <Leader>w <Plug>(easymotion-overwin-w)
+nmap s <Plug>(easymotion-overwin-f2)
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+let g:EasyMotion_smartcase = 1
 
 
 """""""""""FlyGrep"""""""""""""""
@@ -128,10 +125,10 @@ nnoremap <leader>s :FlyGrep<cr>
 """""""""""Tagbar"""""""""""""""
 nnoremap <leader>o :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
-let tagbar_width=28 
- 
+let tagbar_width=28
 
-""""""""indentLine settings""""""    
+
+""""""""indentLine settings""""""
 let g:indentLine_char = "¦"
 let g:indentLine_enabled = 1
 let g:autopep8_disable_show_diff=1
@@ -155,12 +152,43 @@ au BufNewFile,BufRead *.py
 
 """""""""""""""""""""""""""Quick Run"""""""""""""""""""""""""
 let g:quickrun_no_default_key_mappings = 1
-nmap <Leader>r <Plug>(quickrun)
+"nmap <Leader>r <Plug>(quickrun)
 map <F5> :QuickRun<CR>
+map <leader>r :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!time java %<"
+    elseif &filetype == 'sh'
+        :!time bash %
+    elseif &filetype == 'python'
+        exec "!time python %"
+    elseif &filetype == 'html'
+        exec "!firefox % &"
+    elseif &filetype == 'go'
+"        exec "!go build %<"
+        exec "!time go run %"
+    elseif &filetype == 'mkd'
+        exec "!~/.vim/markdown.pl % > %.html &"
+        exec "!firefox %.html &"
+    endif
+endfunc
+
+
+"""""""""""""""""""""""""""UltiSnip"""""""""""""""""""""""""
+let g:UltiSnipsExpandTrigger="<leader>a"
+let g:UltiSnipsEditSplit="vertical"
 
 
 """"""""""""""""""""""""""" vundle 环境设置"""""""""""""""""""""""""
-" 安装命令 
+" 安装命令
 " :PluginInstall
 " 删除命令，首先从配置文件中删除，然后执行下面命令
 " :PluginClean
@@ -187,6 +215,8 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'tell-k/vim-autopep8'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'thinca/vim-quickrun'
+Plugin 'SirVer/ultisnips'
+Plugin 'bronson/vim-trailing-whitespace'
 " Plugin 'Valloric/YouCompleteMe'
 " Plugin 'vim-scripts/phd'
 " Plugin 'Lokaltog/vim-powerline'
@@ -201,7 +231,6 @@ Plugin 'thinca/vim-quickrun'
 " Plugin 'dyng/ctrlsf.vim'
 " Plugin 'terryma/vim-multiple-cursors'
 " Plugin 'vim-scripts/DrawIt'
-" Plugin 'SirVer/ultisnips'
 " Plugin 'derekwyatt/vim-protodef'
 " Plugin 'fholgado/minibufexpl.vim'
 " Plugin 'gcmt/wildfire.vim'
