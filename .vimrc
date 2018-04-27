@@ -1,7 +1,16 @@
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl>\#-*- coding=utf8 -*-\"|$
-autocmd BufNewFile *.sh 0put =\"#!/bin/bash\"|$
+autocmd BufNewFile *.sh 0put =\"#!/bin/bash\<nl>\set -xe\"|$
 autocmd BufNewfile * normal G
+autocmd Filetype json let g:indentLine_setConceal = 0
+autocmd BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
 
 let mapleader=";"
 set pastetoggle=<F9>
@@ -206,15 +215,6 @@ let g:syntastic_check_on_wq = 0
 "V Mode:> 向内缩进
 """""""""""""""""""""""""""""""""
 autocmd FileType python noremap <buffer> <leader>p :call Autopep8()<CR>
-"au BufRead *.py noremap <buffer> <F5> :w<CR>:!/usr/bin/env python % <CR>
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix |
 
 
 """""""""""""""""""""""""""Quick Run"""""""""""""""""""""""""
