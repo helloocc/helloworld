@@ -3,7 +3,7 @@ autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl>\#-*- coding=utf8 -*-\
 autocmd BufNewFile *.sh 0put =\"#!/bin/bash\<nl>\set -xe\"|$
 autocmd BufNewfile * normal G
 autocmd Filetype json let g:indentLine_setConceal = 0
-autocmd BufNewFile,BufRead *.py
+autocmd BufNewFile,BufRead *.{py,sh,json}
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
