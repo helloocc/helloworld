@@ -157,7 +157,7 @@ nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
 """""""""""CtrlP"""""""""""""""
-let g:ctrlp_map = '<leader>f'
+let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
@@ -173,9 +173,9 @@ let g:ctrlp_custom_ignore = {
 " map  <Leader>m <Plug>(easymotion-bd-f)
 "; nmap <Leader>m <Plug>(easymotion-overwin-f)
 " s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+nmap <leader>f <Plug>(easymotion-overwin-f2)
+map  <leader>w <Plug>(easymotion-bd-w)
+nmap <leader>w <Plug>(easymotion-overwin-w)
 let g:EasyMotion_smartcase = 1
 
 
@@ -214,14 +214,14 @@ let g:syntastic_check_on_wq = 0
 "V Mode:< 向外缩进
 "V Mode:> 向内缩进
 """""""""""""""""""""""""""""""""
-autocmd FileType python noremap <buffer> <leader>p :call Autopep8()<CR>
+autocmd FileType python noremap <buffer> <leader>l :call Autopep8()<CR>
 
 
 """""""""""""""""""""""""""Quick Run"""""""""""""""""""""""""
 let g:quickrun_no_default_key_mappings = 1
 "nmap <Leader>r <Plug>(quickrun)
 map <F5> :QuickRun<CR>
-map <leader>r :call CompileRunGcc()<CR>
+map <leader>rr :call CompileRunGcc()<CR>
 func! CompileRunGcc()
     exec "w"
     if &filetype == 'c'
