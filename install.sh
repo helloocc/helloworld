@@ -27,5 +27,9 @@ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/to
 
 pip install tldr
 
+git clone https://github.com/clvv/fasd.git
+cd fasd/
+make install
+
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
