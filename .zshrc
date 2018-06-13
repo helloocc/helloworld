@@ -2,16 +2,16 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/root/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-#ZSH_THEME="ys"
+ZSH_THEME="ys"
 #ZSH_THEME="skaro"
 #ZSH_THEME="blinks"
-ZSH_THEME="pygmalion"
+# ZSH_THEME="pygmalion"
 #ZSH_THEME="avit"
 #ZSH_THEME="random"
 
@@ -66,6 +66,7 @@ ZSH_THEME="pygmalion"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  fasd
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -98,3 +99,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias j='z'
+alias jj='zz'
+alias v='f -e vim'
