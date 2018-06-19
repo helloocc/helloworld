@@ -173,7 +173,7 @@ let g:ctrlp_custom_ignore = {
 " map  <Leader>m <Plug>(easymotion-bd-f)
 "; nmap <Leader>m <Plug>(easymotion-overwin-f)
 " s{char}{char} to move to {char}{char}
-nmap <leader>m <Plug>(easymotion-overwin-f2)
+nmap m <Plug>(easymotion-overwin-f2)
 map  <leader>w <Plug>(easymotion-bd-w)
 nmap <leader>w <Plug>(easymotion-overwin-w)
 let g:EasyMotion_smartcase = 1
