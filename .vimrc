@@ -3,6 +3,7 @@ autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl>\#-*- coding=utf8 -*-\
 autocmd BufNewFile *.sh 0put =\"#!/bin/bash\<nl>\set -xe\"|$
 autocmd BufNewfile * normal G
 autocmd Filetype json let g:indentLine_setConceal = 0
+autocmd FileType python noremap <buffer> <leader>f :call Autopep8()<CR>
 autocmd BufNewFile,BufRead *.{py,sh,json}
     \ set tabstop=4 |
     \ set softtabstop=4 |
@@ -11,6 +12,9 @@ autocmd BufNewFile,BufRead *.{py,sh,json}
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix |
+
+"< 向外缩进
+"> 向内缩进
 
 let mapleader=";"
 set pastetoggle=<F9>
@@ -80,6 +84,8 @@ Plugin 'thinca/vim-quickrun'
 Plugin 'SirVer/ultisnips'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'airblade/vim-gitgutter'
 " Plugin 'Valloric/YouCompleteMe'
 " Plugin 'vim-scripts/phd'
@@ -210,13 +216,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 
-"""""""""Python Setting""""""""""
-"V Mode:< 向外缩进
-"V Mode:> 向内缩进
-"""""""""""""""""""""""""""""""""
-autocmd FileType python noremap <buffer> <leader>f :call Autopep8()<CR>
-
-
 """""""""""""""""""""""""""Quick Run"""""""""""""""""""""""""
 let g:quickrun_no_default_key_mappings = 1
 "nmap <Leader>r <Plug>(quickrun)
@@ -247,3 +246,22 @@ func! CompileRunGcc()
         exec "!firefox %.html &"
     endif
 endfunc
+
+
+"""""""""""""""""""vim-airline""""""""""""""""""""""""""
+let g:airline_theme="bubblegum"
+let g:airline_powerline_fonts = 1
+
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#symbol = '!'
+" set guifont=Consolas\ for\ Powerline\ FixedD:h11
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '¶'
