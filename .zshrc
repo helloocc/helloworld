@@ -102,3 +102,8 @@ source $ZSH/oh-my-zsh.sh
 alias j='z'
 alias jj='zz'
 alias v='f -e vim'
+alias ff='fuck'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval $(thefuck --alias)
