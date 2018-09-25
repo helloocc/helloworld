@@ -12,8 +12,9 @@ autoload -Uz vcs_info
 #use extended color palette if available
 if [[ $terminfo[colors] -ge 256 ]]; then
     turquoise="%F{81}"
-    orange="%F{166}"
+    orange="%F{167}"
     purple="%F{135}"
+    egg="%F{223}"
     hotpink="%F{161}"
     limegreen="%F{118}"
 else
@@ -65,7 +66,8 @@ ys_hg_prompt_info() {
 }
 
 # local time, color coded by last return code
-time_enabled="%(?.%{$fg[blue]%}.%{$fg[red]%})%*%{$reset_color%}"
+#time_enabled="%(?.%{$fg[blue]%}.%{$fg[red]%})%*%{$reset_color%}"
+time_enabled="%(?.%{$turquoise%}.%{$fg[red]%})%*%{$reset_color%}"
 time_disabled="%{$fg[green]%}%*%{$reset_color%}"
 time=$time_enabled
 
@@ -88,11 +90,12 @@ zle -N accept-line-or-clear-warning
 bindkey '^M' accept-line-or-clear-warning
 
 # Prompt format: \n # TIME USER at MACHINE in [DIRECTORY] on git:BRANCH STATE \n $ 
+#%{$fg_bold[blue]%}%n\
 #%{$orange%}$(box_name) \
 PROMPT="
-%{$fg_bold[blue]%}%n\
+%{$orange%}%n\
 %{$fg[white]%}@\
-%{$fg[blue]%}$(box_name) \
+%{$egg%}$(box_name) \
 %{$fg[white]%}in \
 %{$terminfo[bold]$fg[yellow]%}[${current_dir}]%{$reset_color%} \
 ${hg_info}\
