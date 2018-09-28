@@ -14,6 +14,7 @@ fi
 pre_install(){
     if [ $CMD = 'apt' ];then
         echo 'ubuntu pre_install'
+        sudo apt install vim-gtk
     else
         echo 'yum install'
         sudo $CMD install python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel

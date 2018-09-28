@@ -28,6 +28,9 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap <C-d> <DELETE>
+nnoremap <C-y> "+y
+nnoremap <C-p> "+p
+vnoremap y "+y
 
 set foldenable
 set foldmethod=indent
