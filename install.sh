@@ -3,21 +3,21 @@ set -xe
 
 OS=`lsb_release -si`
 if [ x$OS = xUbuntu ];then
-    CMD='apt'
+    INSTALL_CMD='apt install'
 elif [ x$OS = xCentos ];then
-    CMD='yum'
+    INSTALL_CMD='yum install'
 else
     exit 1
 fi
 
 
 pre_install(){
-    if [ $CMD = 'apt' ];then
+    if [ $INSTALL_CMD = 'apt install' ];then
         echo 'ubuntu pre_install'
-        sudo apt install vim-gtk
+        sudo $INSTALL_CMD vim-gtk
     else
         echo 'yum install'
-        sudo $CMD install python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
+        sudo $INSTALL_CMD libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
     fi
 }
 
@@ -37,7 +37,7 @@ tmux(){
 }
 
 zsh(){
-    sudo $CMD install zsh
+    sudo $INSTALL_CMD zsh
     sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
     wget https://raw.githubusercontent.com/helloocc/my-env/master/zxx.zsh-theme -P ~/.oh-my-zsh/themes
     wget https://raw.githubusercontent.com/helloocc/my-env/master/.zshrc -P ~/
@@ -46,7 +46,7 @@ zsh(){
 vim(){
     git clone https://github.com/vim/vim.git ~/vim
     cd vim/
-    ./configure --with-features=huge --enable-pythoninterp --with-python-config-dir=/usr/lib/python2.7/config/ --prefix=/usr
+    ./configure --with-features=huge --with-x --enable-gui --enable-pythoninterp --with-python-config-dir=/usr/lib/python2.7/config/ --prefix=/usr
     sudo make && make install
     cd -
 }
