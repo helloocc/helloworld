@@ -2,9 +2,9 @@
 set -xe
 
 OS=`lsb_release -si`
-if [ x$OS = xUbuntu ];then
+if [ 'x$OS' = 'xUbuntu' ];then
     INSTALL_CMD='apt install'
-elif [ x$OS = xCentos ];then
+elif [ 'x$OS' = 'xCentOS' ];then
     INSTALL_CMD='yum install'
 else
     exit 1
@@ -12,20 +12,23 @@ fi
 
 
 pre_install(){
-    if [ $INSTALL_CMD = 'apt install' ];then
+    sudo $INSTALL_CMD automake wget
+    if [ '$INSTALL_CMD' = 'apt install' ];then
         echo 'ubuntu pre_install'
-        sudo $INSTALL_CMD vim-gtk
+        sudo $INSTALL_CMD vim-gtk libevent-dev
     else
         echo 'yum install'
-        sudo $INSTALL_CMD libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
+        sudo $INSTALL_CMD libevent-devel libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
     fi
 }
 
 tmux(){
+    rpm -qa|grep tmux|xargs rpm -e || true
     git clone https://github.com/tmux/tmux.git
     cd tmux
     sh autogen.sh
     ./configure && make
+    make install
     cd -
 
     git clone https://github.com/gpakosz/.tmux.git
@@ -57,7 +60,8 @@ vim_plugins(){
     if [ ! -d "${vim_color_dir}" ];then
         mkdir -p $vim_color_dir
     fi
-    git clone https://github.com/morhetz/gruvbox.git ~/.vim/colors/
+    git clone https://github.com/morhetz/gruvbox.git
+    cp ./gruvbox/colors/gruvbox.vim ~/.vim/colors/
     wget https://raw.githubusercontent.com/helloocc/my-env/master/.vimrc -P ~/
 }
 
