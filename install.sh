@@ -18,7 +18,7 @@ pre_install(){
         sudo $INSTALL_CMD vim-gtk libevent-dev
     else
         echo 'yum install'
-        sudo $INSTALL_CMD libevent-devel libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
+        sudo $INSTALL_CMD git python2-pip libevent-devel libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
     fi
 }
 
