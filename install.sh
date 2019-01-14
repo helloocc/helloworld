@@ -1,24 +1,24 @@
 #!/bin/bash
-set -xe
+set -e
 
 OS=`lsb_release -si`
 if [ 'x$OS' = 'xUbuntu' ];then
     INSTALL_CMD='apt install'
 elif [ 'x$OS' = 'xCentOS' ];then
-    INSTALL_CMD='yum install'
+    INSTALL_CMD='yum install -y'
 else
     exit 1
 fi
 
 
 pre_install(){
-    sudo $INSTALL_CMD automake wget
+    sudo $INSTALL_CMD automake wget git zsh
     if [ '$INSTALL_CMD' = 'apt install' ];then
         echo 'ubuntu pre_install'
-        sudo $INSTALL_CMD git zsh vim-gtk libevent-dev
+        sudo $INSTALL_CMD vim-gtk libevent-dev
     else
         echo 'yum install'
-        sudo $INSTALL_CMD git zsh python2-pip libevent-devel libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
+        sudo $INSTALL_CMD python2-pip libevent-devel libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
     fi
     sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 }
@@ -74,9 +74,59 @@ others(){
     ~/.fzf/install
 }
 
-pre_install
-tmux
-zsh
-vim
-vim_plugins
-others
+show_usage(){
+    cat <<EOF
+sh init.sh -s STAGE [OPTION]
+
+OPTIONS:
+    -h, --help                  show this message
+    -v, --verbose               show info for debug
+    -s, --stage <stage_num>     stage number list: [1,2,3]. each stage will exit after execute
+
+EOF
+}
+
+if [[ $# -eq 0 ]]; then
+    show_usage
+    exit 1
+fi
+
+while true; do
+    case "$1" in
+        -h|--help)
+            show_usage
+            exit 0
+            ;;
+        -d|--debug)
+            DEBUG=1
+            shift
+            ;;
+        -v|--verbose)
+            VERBOSE=1
+            set -x
+            shift
+            ;;
+        -s|--stage)
+            STAGE="$2"
+            shift 2
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            break
+            ;;
+    esac 
+done
+
+if [[ $STAGE -eq 1 ]]; then
+    pre_install
+elif [[ $STAGE -eq 2 ]]; then
+    zsh
+    tmux
+    others
+elif [[ $STAGE -eq 3 ]]; then
+    vim
+    vim_plugins
+fi
