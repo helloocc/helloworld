@@ -15,11 +15,12 @@ pre_install(){
     sudo $INSTALL_CMD automake wget
     if [ '$INSTALL_CMD' = 'apt install' ];then
         echo 'ubuntu pre_install'
-        sudo $INSTALL_CMD vim-gtk libevent-dev
+        sudo $INSTALL_CMD git zsh vim-gtk libevent-dev
     else
         echo 'yum install'
-        sudo $INSTALL_CMD git python2-pip libevent-devel libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
+        sudo $INSTALL_CMD git zsh python2-pip libevent-devel libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
     fi
+    sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 }
 
 tmux(){
@@ -35,13 +36,10 @@ tmux(){
     ln -s -f .tmux/.tmux.conf
     cp .tmux/.tmux.conf.local .
     wget https://raw.githubusercontent.com/helloocc/my-env/master/.tmux.conf -P ~/
-
     git clone https://github.com/tmux-plugins/tmux-continuum.git ~/.tmux
 }
 
 zsh(){
-    sudo $INSTALL_CMD zsh
-    sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
     wget https://raw.githubusercontent.com/helloocc/my-env/master/zxx.zsh-theme -P ~/.oh-my-zsh/themes
     wget https://raw.githubusercontent.com/helloocc/my-env/master/.zshrc -P ~/
 }
