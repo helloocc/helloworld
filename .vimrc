@@ -233,8 +233,8 @@ let g:ale_set_highlights = 1
 let g:ale_set_signs = 1
 " highlight ALEWarning ctermbg=DarkMagenta
 highlight ALEError ctermbg=red
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <leader>k <Plug>(ale_previous_wrap)
+nmap <leader>j <Plug>(ale_next_wrap)
 
 
 """""""""""""""""""""""""""Quick Run"""""""""""""""""""""""""
