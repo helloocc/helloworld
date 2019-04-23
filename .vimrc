@@ -4,7 +4,7 @@ autocmd BufNewFile *.sh 0put =\"#!/bin/bash\<nl>\set -xe\"|$
 autocmd BufNewfile * normal G
 autocmd Filetype json let g:indentLine_setConceal = 0
 autocmd FileType python noremap <buffer> <leader>f :call Autopep8()<CR>
-autocmd BufNewFile,BufRead *.{py,sh,json}
+autocmd BufNewFile,BufRead *.{py,sh,json,yml,yaml}
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
@@ -86,7 +86,8 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'thinca/vim-quickrun'
 Plugin 'SirVer/ultisnips'
 Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-syntastic/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
@@ -213,14 +214,27 @@ let g:UltiSnipsEditSplit="vertical"
 
 
 """""""""""""""""""""""""""Syntastic"""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map= {"mode": "passive", "active_filetypes": ["python"], "passive_filetypes": ["java"]}
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_mode_map= {"mode": "passive", "active_filetypes": ["python"], "passive_filetypes": ["java"]}
+
+
+"""""""""""""""""""""""""""""ale"""""""""""""""""""""""""""""
+let g:airline#extensions#ale#enabled = 1
+let g:ale_fix_on_save = 0
+let g:ale_completion_enabled = 1
+let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 1
+let g:ale_set_signs = 1
+" highlight ALEWarning ctermbg=DarkMagenta
+highlight ALEError ctermbg=red
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 
 """""""""""""""""""""""""""Quick Run"""""""""""""""""""""""""
