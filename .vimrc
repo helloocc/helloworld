@@ -75,6 +75,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-surround'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'morhetz/gruvbox'
@@ -237,6 +238,14 @@ nmap <leader>k <Plug>(ale_previous_wrap)
 nmap <leader>j <Plug>(ale_next_wrap)
 
 
+ """"""""""""""""""""""""""surround"""""""""""""""""""""""""""
+ "  cs"'        change the delimiter
+ "  ds"         remove the delimiters
+ "  ysiw]       ys,iw,]  [Hello] world!
+ "  yssb/yss)   (hello world)
+ """
+
+
 """""""""""""""""""""""""""Quick Run"""""""""""""""""""""""""
 let g:quickrun_no_default_key_mappings = 1
 "nmap <Leader>r <Plug>(quickrun)
@@ -270,7 +279,8 @@ endfunc
 
 
 """""""""""""""""""vim-airline""""""""""""""""""""""""""
-let g:airline_theme="bubblegum"
+"let g:airline_theme="bubblegum"
+let g:airline_theme="gruvbox"
 let g:airline_powerline_fonts = 1
 
 let g:airline#extensions#whitespace#enabled = 0
