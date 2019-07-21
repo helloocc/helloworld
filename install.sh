@@ -24,20 +24,12 @@ pre_install(){
 }
 
 tmux(){
-<<<<<<< HEAD
     if [ x"$OS" = xCentOS ];then
         rpm -qa|grep tmux|xargs rpm -e || true
     fi
 
     cd ~ && git clone https://github.com/tmux/tmux.git
     cd tmux
-=======
-    if [ x"$OS" == xCentOS ];then
-        rpm -qa|grep tmux|xargs rpm -e || true
-    fi
-
-    cd ~ && git clone https://github.com/tmux/tmux.git && cd $_
->>>>>>> 803d35dad44b2bd9612d64e0f6fc02f97212fd68
     sh autogen.sh
     ./configure && make
     make install
@@ -55,12 +47,8 @@ zsh_conf(){
 }
 
 vim(){
-<<<<<<< HEAD
     cd ~ && git clone https://github.com/vim/vim.git
     cd vim
-=======
-    cd ~ && git clone https://github.com/vim/vim.git && cd $_
->>>>>>> 803d35dad44b2bd9612d64e0f6fc02f97212fd68
     ./configure --with-features=huge --with-x --enable-gui --enable-pythoninterp --with-python-config-dir=/usr/lib/python2.7/config/ --prefix=/usr
     make && make install
 }
@@ -79,12 +67,8 @@ vim_plugins(){
 others(){
     pip install tldr
 
-<<<<<<< HEAD
     cd ~ && git clone https://github.com/clvv/fasd.git
     cd fasd
-=======
-    cd ~ && git clone https://github.com/clvv/fasd.git && cd $_
->>>>>>> 803d35dad44b2bd9612d64e0f6fc02f97212fd68
     make install
 
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
