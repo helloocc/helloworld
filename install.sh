@@ -24,11 +24,20 @@ pre_install(){
 }
 
 tmux(){
+<<<<<<< HEAD
+    if [ x"$OS" = xCentOS ];then
+        rpm -qa|grep tmux|xargs rpm -e || true
+    fi
+
+    cd ~ && git clone https://github.com/tmux/tmux.git
+    cd tmux
+=======
     if [ x"$OS" == xCentOS ];then
         rpm -qa|grep tmux|xargs rpm -e || true
     fi
 
     cd ~ && git clone https://github.com/tmux/tmux.git && cd $_
+>>>>>>> 803d35dad44b2bd9612d64e0f6fc02f97212fd68
     sh autogen.sh
     ./configure && make
     make install
@@ -36,17 +45,22 @@ tmux(){
     cd ~ && git clone https://github.com/gpakosz/.tmux.git
     ln -s -f .tmux/.tmux.conf
     cp .tmux/.tmux.conf.local .
-    wget https://raw.githubusercontent.com/helloocc/my-env/master/.tmux.conf -P ~/
+    wget https://raw.githubusercontent.com/helloocc/my-env/master/.tmux.conf -O ~/.tmux.conf
     git clone https://github.com/tmux-plugins/tmux-continuum.git ~/.tmux
 }
 
 zsh_conf(){
     wget https://raw.githubusercontent.com/helloocc/my-env/master/zxx.zsh-theme -P ~/.oh-my-zsh/themes
-    wget https://raw.githubusercontent.com/helloocc/my-env/master/.zshrc -P ~/
+    wget https://raw.githubusercontent.com/helloocc/my-env/master/.zshrc -O ~/.zshrc
 }
 
 vim(){
+<<<<<<< HEAD
+    cd ~ && git clone https://github.com/vim/vim.git
+    cd vim
+=======
     cd ~ && git clone https://github.com/vim/vim.git && cd $_
+>>>>>>> 803d35dad44b2bd9612d64e0f6fc02f97212fd68
     ./configure --with-features=huge --with-x --enable-gui --enable-pythoninterp --with-python-config-dir=/usr/lib/python2.7/config/ --prefix=/usr
     make && make install
 }
@@ -59,13 +73,18 @@ vim_plugins(){
     fi
     cd ~ && git clone https://github.com/morhetz/gruvbox.git
     cp ./gruvbox/colors/gruvbox.vim ~/.vim/colors/
-    wget https://raw.githubusercontent.com/helloocc/my-env/master/.vimrc -P ~/
+    wget https://raw.githubusercontent.com/helloocc/my-env/master/.vimrc -O ~/.vimrc
 }
 
 others(){
-    sudo pip install tldr
+    pip install tldr
 
+<<<<<<< HEAD
+    cd ~ && git clone https://github.com/clvv/fasd.git
+    cd fasd
+=======
     cd ~ && git clone https://github.com/clvv/fasd.git && cd $_
+>>>>>>> 803d35dad44b2bd9612d64e0f6fc02f97212fd68
     make install
 
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
