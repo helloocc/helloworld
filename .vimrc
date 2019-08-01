@@ -80,7 +80,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'morhetz/gruvbox'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'wsdjeg/FlyGrep.vim'
+" Plugin 'wsdjeg/FlyGrep.vim'
 Plugin 'Yggdroot/indentLine'
 Plugin 'tell-k/vim-autopep8'
 Plugin 'jiangmiao/auto-pairs'
@@ -95,18 +95,9 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'roxma/vim-tmux-clipboard'
+Plugin 'dyng/ctrlsf.vim'
+Plugin 'terryma/vim-multiple-cursors'
 " Plugin 'Valloric/YouCompleteMe'
-" Plugin 'vim-scripts/phd'
-" Plugin 'Lokaltog/vim-powerline'
-" Plugin 'nathanaelkane/vim-indent-guides'
-" Plugin 'derekwyatt/vim-fswitch'
-" Plugin 'kshenoy/vim-signature'
-" Plugin 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
-" Plugin 'vim-scripts/indexer.tar.gz'
-" Plugin 'vim-scripts/DfrankUtil'
-" Plugin 'vim-scripts/vimprj'
-" Plugin 'dyng/ctrlsf.vim'
-" Plugin 'terryma/vim-multiple-cursors'
 " Plugin 'vim-scripts/DrawIt'
 " Plugin 'derekwyatt/vim-protodef'
 " Plugin 'fholgado/minibufexpl.vim'
@@ -191,10 +182,6 @@ nmap m <Plug>(easymotion-overwin-f2)
 map  <leader>w <Plug>(easymotion-bd-w)
 nmap <leader>w <Plug>(easymotion-overwin-w)
 let g:EasyMotion_smartcase = 1
-
-
-"""""""""""FlyGrep"""""""""""""""
-nnoremap <leader>s :FlyGrep<cr>
 
 
 """""""""""Tagbar"""""""""""""""
@@ -296,3 +283,22 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '¶'
+
+
+"""""""""""""""""""""CtrlSF"""""""""""""""""""""""
+nnoremap   <leader>s :CtrlSF<space>
+let g:ctrlsf_default_view_mode = 'compact'
+
+
+""""""""""""""vim-multiple-cursors""""""""""""""""
+" c,I,A   change/insert before/append
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
