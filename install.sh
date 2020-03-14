@@ -49,8 +49,22 @@ zsh_conf(){
 vim(){
     cd ~ && git clone https://github.com/vim/vim.git
     cd vim
-    ./configure --with-features=huge --with-x --enable-gui --enable-pythoninterp --with-python-config-dir=/usr/lib/python2.7/config/ --prefix=/usr
-    make && make install
+   	./configure \
+       --with-features=huge \
+       --enable-gui=auto \
+       --enable-multibyte \
+       --enable-rubyinterp=dynamic \
+       --enable-pythoninterp=dynamic \
+       --with-python3-config-dir=/usr/lib/python3.7/config \
+       --enable-python3interp \
+       --enable-luainterp \
+       --enable-cscope \
+       --enable-fontset \
+       --enable-largefile \
+       --enable-fail-if-missing\
+       --with-compiledby="helloc" \
+       --prefix=/usr/local
+	make && sudo make install && echo '[vim compile success!!!]'
 }
 
 vim_plugins(){
