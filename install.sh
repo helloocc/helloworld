@@ -4,7 +4,7 @@ set -e
 OS=`lsb_release -si`
 if [ x"$OS" = xUbuntu ];then
     INSTALL_CMD='sudo apt install -y'
-elif [ x"$OS" == xCentOS ];then
+elif [ x"$OS" = xCentOS ];then
     INSTALL_CMD='sudo yum install -y'
 else
     exit 1
@@ -15,7 +15,7 @@ pre_install(){
     $INSTALL_CMD automake wget git zsh
     if [ x"$OS" = xUbuntu ];then
         echo 'ubuntu pre_install'
-        $INSTALL_CMD vim-gtk libevent-dev
+        $INSTALL_CMD vim-gtk libevent-dev libncurses5-dev
     else
         echo 'yum install'
         $INSTALL_CMD libevent-devel libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
@@ -28,65 +28,63 @@ tmux(){
         rpm -qa|grep tmux|xargs rpm -e || true
     fi
 
-    cd ~ && git clone https://github.com/tmux/tmux.git
+    cd $HOME && git clone https://github.com/tmux/tmux.git
     cd tmux
     sh autogen.sh
     ./configure && make
     make install
 
-    cd ~ && git clone https://github.com/gpakosz/.tmux.git
+    cd $HOME && git clone https://github.com/gpakosz/.tmux.git
     ln -s -f .tmux/.tmux.conf
     cp .tmux/.tmux.conf.local .
-    wget https://raw.githubusercontent.com/helloocc/my-env/master/.tmux.conf -O ~/.tmux.conf
-    git clone https://github.com/tmux-plugins/tmux-continuum.git ~/.tmux
+    wget https://raw.githubusercontent.com/helloocc/my-env/master/.tmux.conf -O $HOME/.tmux.conf
+    git clone https://github.com/tmux-plugins/tmux-continuum.git $HOME/.tmux
 }
 
 zsh_conf(){
-    wget https://raw.githubusercontent.com/helloocc/my-env/master/zxx.zsh-theme -P ~/.oh-my-zsh/themes
-    wget https://raw.githubusercontent.com/helloocc/my-env/master/.zshrc -O ~/.zshrc
+    wget https://raw.githubusercontent.com/helloocc/my-env/master/zxx.zsh-theme -P $HOME/.oh-my-zsh/themes
+    wget https://raw.githubusercontent.com/helloocc/my-env/master/.zshrc -O $HOME/.zshrc
 }
 
 vim(){
-    cd ~ && git clone https://github.com/vim/vim.git
+    cd $HOME && git clone https://github.com/vim/vim.git
     cd vim
    	./configure \
        --with-features=huge \
        --enable-gui=auto \
        --enable-multibyte \
-       --enable-rubyinterp=dynamic \
        --enable-pythoninterp=dynamic \
-       --with-python3-config-dir=/usr/lib/python3.7/config \
        --enable-python3interp \
-       --enable-luainterp \
        --enable-cscope \
        --enable-fontset \
        --enable-largefile \
        --enable-fail-if-missing\
        --with-compiledby="helloc" \
+       --with-python3-config-dir=/usr/lib/python3.7/config \
        --prefix=/usr/local
 	make && sudo make install && echo '[vim compile success!!!]'
 }
 
 vim_plugins(){
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    vim_color_dir='~/.vim/colors'
+    git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+    vim_color_dir='$HOME/.vim/colors'
     if [ ! -d "${vim_color_dir}" ];then
         mkdir -p $vim_color_dir
     fi
-    cd ~ && git clone https://github.com/morhetz/gruvbox.git
-    cp ./gruvbox/colors/gruvbox.vim ~/.vim/colors/
-    wget https://raw.githubusercontent.com/helloocc/my-env/master/.vimrc -O ~/.vimrc
+    cd $HOME && git clone https://github.com/morhetz/gruvbox.git
+    cp ./gruvbox/colors/gruvbox.vim $HOME/.vim/colors/
+    wget https://raw.githubusercontent.com/helloocc/my-env/master/.vimrc -O $HOME/.vimrc
 }
 
 others(){
     pip install tldr
 
-    cd ~ && git clone https://github.com/clvv/fasd.git
+    cd $HOME && git clone https://github.com/clvv/fasd.git
     cd fasd
     make install
 
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
+    git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+    $HOME/.fzf/install
 }
 
 show_usage(){
