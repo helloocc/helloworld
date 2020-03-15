@@ -77,11 +77,11 @@ vim_plugins(){
 }
 
 others(){
-    pip install tldr
+    sudo pip3 install tldr thefuck
 
     cd $HOME && git clone https://github.com/clvv/fasd.git
     cd fasd
-    make install
+    sudo make install
 
     git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
     $HOME/.fzf/install
