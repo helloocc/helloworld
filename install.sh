@@ -15,10 +15,10 @@ pre_install(){
     $INSTALL_CMD automake wget git zsh
     if [ x"$OS" = xUbuntu ];then
         echo 'ubuntu pre_install'
-        $INSTALL_CMD vim-gtk libevent-dev libncurses5-dev
+        $INSTALL_CMD vim-gtk libevent-dev libncurses5-dev exuberant-ctags
     else
         echo 'yum install'
-        $INSTALL_CMD libevent-devel libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel
+        $INSTALL_CMD libevent-devel libXt-devel gtk2-devel python-devel python3-devel ruby-devel lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel ctags
     fi
     sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 }
@@ -28,28 +28,29 @@ tmux(){
         rpm -qa|grep tmux|xargs rpm -e || true
     fi
 
-    cd $HOME && git clone https://github.com/tmux/tmux.git
+    cd $HOME && git clone --depth 1 https://github.com/tmux/tmux.git
     cd tmux
     sh autogen.sh
-    ./configure && make
-    make install
+    ./configure
+    sudo make && sudo make install
 
     cd $HOME && git clone https://github.com/gpakosz/.tmux.git
     ln -s -f .tmux/.tmux.conf
     cp .tmux/.tmux.conf.local .
     wget https://raw.githubusercontent.com/helloocc/my-env/master/.tmux.conf -O $HOME/.tmux.conf
-    git clone https://github.com/tmux-plugins/tmux-continuum.git $HOME/.tmux
+    git clone https://github.com/tmux-plugins/tmux-continuum.git
 }
 
 zsh_conf(){
     wget https://raw.githubusercontent.com/helloocc/my-env/master/zxx.zsh-theme -P $HOME/.oh-my-zsh/themes
     wget https://raw.githubusercontent.com/helloocc/my-env/master/.zshrc -O $HOME/.zshrc
+    zsh
 }
 
 vim(){
-    cd $HOME && git clone https://github.com/vim/vim.git
+    cd $HOME && git clone --depth 1 https://github.com/vim/vim.git
     cd vim
-   	./configure \
+    ./configure \
        --with-features=huge \
        --enable-gui=auto \
        --enable-multibyte \
@@ -62,7 +63,7 @@ vim(){
        --with-compiledby="helloc" \
        --with-python3-config-dir=/usr/lib/python3.7/config \
        --prefix=/usr/local
-	make && sudo make install && echo '[vim compile success!!!]'
+    sudo make && sudo make install && echo '[vim compile success!!!]'
 }
 
 vim_plugins(){
@@ -72,7 +73,7 @@ vim_plugins(){
         mkdir -p $vim_color_dir
     fi
     cd $HOME && git clone https://github.com/morhetz/gruvbox.git
-    cp ./gruvbox/colors/gruvbox.vim $HOME/.vim/colors/
+    cp $HOME/gruvbox/colors/gruvbox.vim $HOME/.vim/colors/
     wget https://raw.githubusercontent.com/helloocc/my-env/master/.vimrc -O $HOME/.vimrc
 }
 
