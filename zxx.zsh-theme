@@ -101,7 +101,7 @@ PROMPT="
 ${hg_info}\
 ${git_info} \
 ${git_last_commit}
-%{$time%}% \
+${time} \
 %{$terminfo[bold]$fg[white]%}› %{$reset_color%}"
 
 if [[ "$USER" == "root" ]]; then
