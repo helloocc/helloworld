@@ -4,7 +4,7 @@ autocmd BufNewFile *.sh 0put =\"#!/bin/bash\<nl>\set -xe\"|$
 autocmd BufNewfile * normal G
 autocmd Filetype json let g:indentLine_setConceal = 0
 autocmd FileType python noremap <buffer> <leader>f :call Autopep8()<CR>
-autocmd BufNewFile,BufRead *.{py,sh,json,yml,yaml}
+autocmd BufNewFile,BufRead *.{py,sh,json,yml,yaml,xml,html}
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
@@ -18,6 +18,7 @@ autocmd BufNewFile,BufRead *.{py,sh,json,yml,yaml}
 
 let mapleader=";"
 set pastetoggle=<F9>
+nnoremap <F10> :set invnumber<CR>
 inoremap <leader><Space> <Esc>
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
@@ -76,18 +77,14 @@ Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-surround'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
 Plugin 'morhetz/gruvbox'
 Plugin 'Lokaltog/vim-easymotion'
-" Plugin 'wsdjeg/FlyGrep.vim'
 Plugin 'Yggdroot/indentLine'
 Plugin 'tell-k/vim-autopep8'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'thinca/vim-quickrun'
 Plugin 'SirVer/ultisnips'
 Plugin 'bronson/vim-trailing-whitespace'
-" Plugin 'vim-syntastic/syntastic'
 Plugin 'w0rp/ale'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -97,14 +94,8 @@ Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'roxma/vim-tmux-clipboard'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'terryma/vim-multiple-cursors'
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'vim-scripts/DrawIt'
-" Plugin 'derekwyatt/vim-protodef'
-" Plugin 'fholgado/minibufexpl.vim'
-" Plugin 'gcmt/wildfire.vim'
-" Plugin 'sjl/gundo.vim'
-" Plugin 'suan/vim-instant-markdown'
-" Plugin 'lilydjwg/fcitx.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'alfredodeza/pytest.vim
 call vundle#end()
 filetype plugin indent on
 
@@ -114,10 +105,6 @@ set t_Co=256
 set background=dark
 colorscheme gruvbox
 let g:gruvbox_termcolors=256
-"colorscheme solarized
-"let g:solarized_termcolors=16
-"colorscheme zenburn
-"colorscheme molokai
 
 
 """""""""""""""" NERDTree""""""""""""""""""
@@ -176,7 +163,7 @@ let g:ctrlp_custom_ignore = {
 """""""""""Easy-motion"""""""""""""""
 " <Leader>m{char} to move to {char}
 " map  <Leader>m <Plug>(easymotion-bd-f)
-"; nmap <Leader>m <Plug>(easymotion-overwin-f)
+" nmap <Leader>m <Plug>(easymotion-overwin-f)
 " s{char}{char} to move to {char}{char}
 nmap m <Plug>(easymotion-overwin-f2)
 map  <leader>w <Plug>(easymotion-bd-w)
@@ -201,17 +188,6 @@ let g:UltiSnipsExpandTrigger="<leader>a"
 let g:UltiSnipsEditSplit="vertical"
 
 
-"""""""""""""""""""""""""""Syntastic"""""""""""""""""""""""""
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_mode_map= {"mode": "passive", "active_filetypes": ["python"], "passive_filetypes": ["java"]}
-
-
 """""""""""""""""""""""""""""ale"""""""""""""""""""""""""""""
 let g:airline#extensions#ale#enabled = 1
 let g:ale_fix_on_save = 0
@@ -219,6 +195,10 @@ let g:ale_completion_enabled = 1
 let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 1
 let g:ale_set_signs = 1
+let g:ale_lint_delay = 200
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 'always'
 " highlight ALEWarning ctermbg=DarkMagenta
 highlight ALEError ctermbg=red
 nmap <leader>k <Plug>(ale_previous_wrap)
@@ -237,7 +217,7 @@ nmap <leader>j <Plug>(ale_next_wrap)
 let g:quickrun_no_default_key_mappings = 1
 "nmap <Leader>r <Plug>(quickrun)
 map <F5> :QuickRun<CR>
-map <leader>rr :call CompileRunGcc()<CR>
+map <leader>' :call CompileRunGcc()<CR>
 func! CompileRunGcc()
     exec "w"
     if &filetype == 'c'
@@ -252,7 +232,7 @@ func! CompileRunGcc()
     elseif &filetype == 'sh'
         :!time bash %
     elseif &filetype == 'python'
-        exec "!time python %"
+        exec "!time python3 %"
     elseif &filetype == 'html'
         exec "!firefox % &"
     elseif &filetype == 'go'
@@ -302,3 +282,7 @@ let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
+
+
+""""""""""""""""""""pytest""""""""""""""""""""""
+nnoremap <leader>[ :Pytest file verbose<CR>
