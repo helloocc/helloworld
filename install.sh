@@ -67,7 +67,8 @@ vim(){
 }
 
 vim_plugins(){
-    git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+    curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     vim_color_dir='$HOME/.vim/colors'
     if [ ! -d "${vim_color_dir}" ];then
         mkdir -p $vim_color_dir

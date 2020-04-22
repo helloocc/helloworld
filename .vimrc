@@ -57,47 +57,40 @@ set wildmenu
 set backspace=indent,eol,start
 
 
-""""""""""""""""""""""""""" vundle 环境设置"""""""""""""""""""""""""
+""""""""""""""""""""""""""vim plugin管理"""""""""""""""""""""""""""
 " 安装命令
 " :PluginInstall
 " 删除命令，首先从配置文件中删除，然后执行下面命令
 " :PluginClean
 " 更新命令
 " :PluginUpdate
-" vundle 管理的插件列表必须位于 vundle#begin() 和 vundle#end() 之间
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype off
-set nocompatible
-set rtp+=~/.vim/bundle/Vundle.vim
-
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'tpope/vim-surround'
-Plugin 'morhetz/gruvbox'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'Yggdroot/indentLine'
-Plugin 'tell-k/vim-autopep8'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'thinca/vim-quickrun'
-Plugin 'SirVer/ultisnips'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'w0rp/ale'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tmux-plugins/vim-tmux-focus-events'
-Plugin 'roxma/vim-tmux-clipboard'
-Plugin 'dyng/ctrlsf.vim'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'alfredodeza/pytest.vim
-call vundle#end()
-filetype plugin indent on
+call plug#begin('~/.vim/plugged')
+Plug 'kien/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+Plug 'morhetz/gruvbox'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'Yggdroot/indentLine'
+Plug 'tell-k/vim-autopep8'
+Plug 'jiangmiao/auto-pairs'
+Plug 'thinca/vim-quickrun'
+Plug 'SirVer/ultisnips'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'w0rp/ale'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'dyng/ctrlsf.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'Valloric/YouCompleteMe'
+Plug 'alfredodeza/pytest.vim'
+call plug#end()
 
 
 """""""""""""Theme Setting""""""""""""""""
