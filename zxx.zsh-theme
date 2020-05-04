@@ -55,7 +55,7 @@ PROMPT="
 ${git_info} \
 ${git_last_commit}
 ${time} \
-%{$terminfo[bold]$fg[white]%}› %{$reset_color%}"
+%{$terminfo[bold]$fg[white]%}› %{$reset_color%}%f"
 
 if [[ "$USER" == "root" ]]; then
 PROMPT="
