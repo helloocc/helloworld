@@ -76,10 +76,10 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Yggdroot/indentLine'
-"Plug 'bronson/vim-trailing-whitespace'
-"Plug 'tpope/vim-surround'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'tpope/vim-surround'
 "Plug 'airblade/vim-gitgutter'
-"Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
@@ -203,6 +203,8 @@ let g:coc_global_extensions = [
 \ 'coc-snippets',
 \ 'coc-pairs',
 \ 'coc-lists',
+\ 'coc-git',
+\ 'coc-imselect',
 \ ]
 
 " TextEdit might fail if hidden is not set.
