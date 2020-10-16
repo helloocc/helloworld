@@ -1,8 +1,9 @@
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
-autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl>\#-*- coding=utf8 -*-\"|$
+" autocmd BufNewFile *.py 0put =\"#!/usr/bin/env python\<nl>\# -*- coding=utf8 -*-\"|$
+autocmd BufNewFile *.py 0r ~/.vim/template/template.py
 autocmd BufNewFile *.sh 0put =\"#!/bin/bash\<nl>\set -xe\"|$
 autocmd BufNewfile * normal G
-autocmd BufNewFile,BufRead *.{py,sh,json,ts,yml,yaml,xml,html}
+autocmd BufNewFile,BufRead *.{py,java,sh,json,ts,yml,yaml,xml,html}
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
@@ -72,6 +73,7 @@ Plug 'majutsushi/tagbar'
 Plug 'kien/ctrlp.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
+Plug 'jiangmiao/auto-pairs'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -82,6 +84,7 @@ Plug 'tpope/vim-surround'
 Plug 'thinca/vim-quickrun'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+Plug 'alfredodeza/pytest.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
@@ -158,8 +161,6 @@ noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 
-noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
-noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
 " search visually selected text literally
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
@@ -193,7 +194,7 @@ let tagbar_width=28
 
 
 """"""""indentLine settings""""""
-autocmd Filetype json let g:indentLine_setConceal = 0 
+autocmd Filetype json let g:indentLine_setConceal = 0
 let g:indentLine_char = "¦"
 let g:indentLine_enabled = 1
 let g:autopep8_disable_show_diff=1
@@ -256,6 +257,10 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '¶'
 
 
+""""""""""""“""""""""""""""pytest""""""""""""""""""""""""""
+nnoremap <leader>[ :Pytest file verbose<CR>
+
+
 """"""""""""""""""""""""""coc settings start"""""""""""""""""""""""""""""
 let g:coc_global_extensions = [
 \ 'coc-python',
@@ -270,10 +275,16 @@ let g:coc_global_extensions = [
 \ 'coc-xml',
 \ 'coc-highlight',
 \ 'coc-snippets',
-\ 'coc-pairs',
 \ 'coc-lists',
 \ 'coc-git',
 \ 'coc-imselect',
+\ 'coc-markdownlint',
+\ 'coc-angular',
+\ 'coc-explorer',
+\ 'coc-fzf-preview',
+\ 'coc-vetur',
+\ 'coc-eslint',
+\ 'coc-diagnostic',
 \ ]
 
 " TextEdit might fail if hidden is not set.
@@ -361,8 +372,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
+nnoremap <leader>f  :call CocAction('format')<CR>
 
 augroup mygroup
   autocmd!
