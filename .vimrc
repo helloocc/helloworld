@@ -85,6 +85,7 @@ Plug 'thinca/vim-quickrun'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'alfredodeza/pytest.vim'
+Plug 'uiiaoo/java-syntax.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
@@ -256,6 +257,22 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '¶'
 
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#formatter = 'default'
+
+nnoremap <C-N> :bn<CR>
+nnoremap <C-P> :bp<CR>
+map <leader>1 :b 1<CR>
+map <leader>2 :b 2<CR>
+map <leader>3 :b 3<CR>
+map <leader>4 :b 4<CR>
+map <leader>5 :b 5<CR>
+map <leader>6 :b 6<CR>
+map <leader>7 :b 7<CR>
+map <leader>8 :b 8<CR>
+map <leader>9 :b 9<CR>
+
 
 """"""""""""“""""""""""""""pytest""""""""""""""""""""""""""
 nnoremap <leader>[ :Pytest file verbose<CR>
@@ -370,6 +387,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>rf <Plug>(coc-refactor)
 
 " Formatting selected code.
 " xmap <leader>f  <Plug>(coc-format-selected)
