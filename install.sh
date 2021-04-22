@@ -78,7 +78,7 @@ vim(){
        --enable-largefile \
        --enable-fail-if-missing\
        --with-compiledby="helloc" \
-       -with-python3-config-dir=/usr/lib/python3.7/config \
+       -with-python3-config-dir=/usr/lib/python3.8/config \
        --prefix=/usr/local
     sudo make && sudo make install && log_info 'vim compile success!'
 }
@@ -99,6 +99,7 @@ vim_plugins(){
     fi
     cp $clone_dir/colors/gruvbox.vim $vim_color_dir
     cp $WORKSPACE/.vimrc $HOME
+    cp -r $WORKSPACE/template $HOME/.vim
 }
 
 others(){
