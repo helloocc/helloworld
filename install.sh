@@ -1,18 +1,28 @@
 #!/bin/bash
 set -e
 
-WORKSPACE=$(readlink -f $(dirname $0))
-OS=`lsb_release -si`
-if [ x"$OS" = xUbuntu ];then
-    INSTALL_CMD='sudo apt install -y'
-elif [ x"$OS" = xCentOS ];then
-    INSTALL_CMD='sudo yum install -y'
-else
-    exit 1
-fi
-
 log_info(){
     echo "[INFO]: $1"
+}
+
+which_system(){
+    if which lsb_release > /dev/null 2>&1;then
+        OS=`lsb_release -si`
+        if [ x"$OS" = xUbuntu ];then
+            log_info "This is Ubuntu system."
+            INSTALL_CMD='sudo apt install -y'
+        elif [ x"$OS" = xCentOS ];then
+            log_info "This is CentOS system."
+            INSTALL_CMD='sudo yum install -y'
+        else
+            exit 1
+        fi
+    else
+        if [[ -n `cat /etc/*-release|grep centos` ]];then
+            log_info "This is CentOS system."
+            INSTALL_CMD='sudo yum install -y'
+        fi
+    fi
 }
 
 pre_install(){
@@ -168,6 +178,9 @@ while true; do
             ;;
     esac
 done
+
+WORKSPACE=$(readlink -f $(dirname $0))
+which_system
 
 if [ $STAGE -eq 1 ]; then
     pre_install
