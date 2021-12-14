@@ -26,14 +26,14 @@ which_system(){
 }
 
 pre_install(){
-    $INSTALL_CMD automake wget git zsh
+    $INSTALL_CMD automake wget zsh git tig
     if [ x"$OS" = xUbuntu ];then
         log_info 'ubuntu pre_install'
-        $INSTALL_CMD vim-gtk libevent-dev libncurses5-dev exuberant-ctags tig
+        $INSTALL_CMD vim-gtk libevent-dev libncurses5-dev exuberant-ctags
     else
         log_info 'yum install'
-        $INSTALL_CMD libevent-devel libXt-devel gtk2-devel python-devel python3-devel ruby-devel \
-            lua-devel libX11-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel ctags tig
+        $INSTALL_CMD libevent-devel libXt-devel libffi-devel libX11-devel python3-devel \
+            lua-devel ruby-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel ctags
     fi
     sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 }
