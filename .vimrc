@@ -195,10 +195,11 @@ let tagbar_width=28
 
 
 """"""""indentLine settings""""""
-autocmd Filetype json let g:indentLine_setConceal = 0
+"autocmd Filetype json let g:indentLine_setConceal = 0
 let g:indentLine_char = "¦"
 let g:indentLine_enabled = 1
 let g:autopep8_disable_show_diff=1
+let g:indentLine_fileTypeExclude = ['json', 'jsonc']
 
 
 """"""""""""""""""""""surround""""""""""""""""""""""""""
@@ -272,6 +273,7 @@ map <leader>6 :b 6<CR>
 map <leader>7 :b 7<CR>
 map <leader>8 :b 8<CR>
 map <leader>9 :b 9<CR>
+map <leader>x :bdelete<CR>
 
 
 """"""""""""“""""""""""""""pytest""""""""""""""""""""""""""
@@ -280,28 +282,29 @@ nnoremap <leader>[ :Pytest file verbose<CR>
 
 """"""""""""""""""""""""""coc settings start"""""""""""""""""""""""""""""
 let g:coc_global_extensions = [
-\ 'coc-python',
-\ 'coc-java',
-\ 'coc-go',
-\ 'coc-tsserver',
-\ 'coc-powershell',
-\ 'coc-json',
-\ 'coc-yaml',
-\ 'coc-html',
-\ 'coc-css',
-\ 'coc-xml',
-\ 'coc-highlight',
-\ 'coc-snippets',
-\ 'coc-lists',
-\ 'coc-git',
-\ 'coc-imselect',
-\ 'coc-markdownlint',
 \ 'coc-angular',
+\ 'coc-css',
+\ 'coc-diagnostic',
+\ 'coc-eslint',
 \ 'coc-explorer',
 \ 'coc-fzf-preview',
+\ 'coc-git',
+\ 'coc-go',
+\ 'coc-highlight',
+\ 'coc-html',
+\ 'coc-imselect',
+\ 'coc-java',
+\ 'coc-json',
+\ 'coc-lists',
+\ 'coc-markdownlint',
+\ 'coc-powershell',
+\ 'coc-python',
+\ 'coc-pyright',
+\ 'coc-snippets',
+\ 'coc-tsserver',
 \ 'coc-vetur',
-\ 'coc-eslint',
-\ 'coc-diagnostic',
+\ 'coc-xml',
+\ 'coc-yaml',
 \ ]
 
 " TextEdit might fail if hidden is not set.
