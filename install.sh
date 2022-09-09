@@ -38,6 +38,19 @@ pre_install(){
     sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 }
 
+ctags(){
+    log_info 'install u-ctags...'
+    local clone_dir=$HOME/ctags
+    if [ ! -d $clone_dir ];then
+        git clone --depth 1 https://github.com/universal-ctags/ctags.git $clone_dir
+    fi
+    cd $clone_dir
+    ./autogen.sh
+    ./configure
+    sudo make && sudo make install
+    log_info 'ctags install success!'
+}
+
 tmux(){
     log_info 'install tmux.'
     if [ x"$OS" = xCentOS ];then
@@ -186,6 +199,7 @@ if [ $STAGE -eq 1 ]; then
     pre_install
 elif [ $STAGE -eq 2 ]; then
     tmux
+    ctags
     others
     zsh_conf
 elif [ $STAGE -eq 3 ]; then
