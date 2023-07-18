@@ -32,8 +32,8 @@ pre_install(){
         $INSTALL_CMD vim-gtk libevent-dev libncurses5-dev exuberant-ctags
     else
         log_info 'yum install'
-        $INSTALL_CMD libevent-devel libXt-devel libffi-devel libX11-devel python3-devel \
-            lua-devel ruby-devel gtk-devel gtk2-devel gtk3-devel ncurses-devel ctags
+        $INSTALL_CMD byacc libevent-devel libXt-devel libffi-devel libX11-devel python3-devel \
+            ruby-devel gtk2-devel gtk3-devel ncurses-devel ctags
     fi
     sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 }

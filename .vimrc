@@ -305,6 +305,7 @@ let g:coc_global_extensions = [
 \ 'coc-snippets',
 \ 'coc-tsserver',
 \ 'coc-vetur',
+\ 'coc-wxml',
 \ 'coc-xml',
 \ 'coc-yaml',
 \ 'coc-yank',
