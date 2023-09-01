@@ -32,8 +32,11 @@ pre_install(){
         $INSTALL_CMD vim-gtk libevent-dev libncurses5-dev exuberant-ctags
     else
         log_info 'yum install'
-        $INSTALL_CMD byacc libevent-devel libXt-devel libffi-devel libX11-devel python3-devel \
-            ruby-devel gtk2-devel gtk3-devel ncurses-devel ctags
+        $INSTALL_CMD epel-release
+        $INSTALL_CMD byacc bzip2-devel ctags libevent-devel libffi-devel libuuid-devel libXt-devel libffi-devel libX11-devel \
+            ruby-devel gtk2-devel gtk3-devel gdbm-devel ncurses-devel python3-devel readline-devel \
+    		openssl-devel openssl11 openssl11-devel sqlite-devel xz-devel zlib-devel
+		yum groupinstall "Development tools" -y
     fi
     sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 }
@@ -101,7 +104,6 @@ vim(){
        --enable-largefile \
        --enable-fail-if-missing\
        --with-compiledby="helloc" \
-       -with-python3-config-dir=/usr/lib/python3.8/config \
        --prefix=/usr/local
     sudo make && sudo make install && log_info 'vim compile success!'
 }
