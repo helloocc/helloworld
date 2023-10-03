@@ -32,12 +32,24 @@ pre_install(){
         $INSTALL_CMD vim-gtk libevent-dev libncurses5-dev exuberant-ctags
     else
         log_info 'yum install'
+		yum groupinstall "Development tools" -y
         $INSTALL_CMD epel-release
         $INSTALL_CMD byacc bzip2-devel ctags libevent-devel libffi-devel libuuid-devel libXt-devel libffi-devel libX11-devel \
             ruby-devel gtk2-devel gtk3-devel gdbm-devel ncurses-devel python3-devel readline-devel \
-    		openssl-devel openssl11 openssl11-devel sqlite-devel xz-devel zlib-devel
-		yum groupinstall "Development tools" -y
+    		openssl-devel sqlite-devel xz-devel zlib-devel
     fi
+
+	cat <<EOF | sudo tee ~/.pip/pip.conf
+[global]
+index-url=http://mirrors.aliyun.com/pypi/simple/
+
+[install]
+trusted-host=
+        mirrors.aliyun.com
+
+#ssl_verify: false
+EOF
+
     sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 }
 
@@ -88,6 +100,10 @@ zsh_conf(){
 
 vim(){
     log_info 'install vim...'
+    if [ x"$OS" = xCentOS ];then
+        rpm -qa|grep vim-common|xargs rpm -e || true
+    fi
+
     local clone_dir=$HOME/vim
     if [ ! -d $clone_dir ];then
         git clone --depth 1 https://github.com/vim/vim.git $clone_dir
@@ -97,7 +113,6 @@ vim(){
        --with-features=huge \
        --enable-gui=auto \
        --enable-multibyte \
-       --enable-pythoninterp=dynamic \
        --enable-python3interp \
        --enable-cscope \
        --enable-fontset \
@@ -105,7 +120,13 @@ vim(){
        --enable-fail-if-missing\
        --with-compiledby="helloc" \
        --prefix=/usr/local
-    sudo make && sudo make install && log_info 'vim compile success!'
+    sudo make && sudo make install
+
+    if [ -f '/usr/bin/vim' ];then
+        mv /usr/bin/vim /usr/bin/vim.bak
+    fi
+    cp /usr/local/bin/vim /usr/bin/vim
+    log_info 'vim install success!'
 }
 
 vim_plugins(){
