@@ -2,21 +2,24 @@
 set -xe
 
 mv_bak(){
-    if [ -f $1 ];then
+    if [ -n $1 ];then
         mv $1 $1.bak
     fi
 }
 
 install_openssl(){
 	wget https://www.openssl.org/source/openssl-1.1.1n.tar.gz
-	tar -zxvf openssl-1.1.1n.tar.gz && cd openssl-1.1.1n
+	tar -zxvf openssl-1.1.1n.tar.gz
+    cd openssl-1.1.1n
     ./config --prefix=/usr/local/openssl && make && make install
+    cd -
 	mv_bak /usr/bin/openssl
 	ln -sf /usr/local/openssl/bin/openssl /usr/bin/openssl
     mv_bak /usr/local/openssl/lib/libcrypto.so.1.1
 	echo "/usr/local/openssl/lib" >> /etc/ld.so.conf
 	ldconfig -v
 	openssl version
+    rm /usr/local/openssl/lib/libcrypto.so.1.1
 }
 
 install_python(){
@@ -26,10 +29,13 @@ install_python(){
 		sqlite-devel libffi-devel libuuid-devel readline-devel \
 		zlib-devel openssl-devel bzip2-devel -y
 
-	wget -c https://mirrors.huaweicloud.com/python/3.10.7/Python-3.10.7.tgz
-	tar -zxvf Python-3.10.7.tgz && cd Python-3.10.7
+    version='3.10.7'
+	wget -c https://mirrors.huaweicloud.com/python/${version}/Python-${version}.tgz
+	tar -zxvf Python-${version}.tgz
+    cd Python-${version}
     sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
 	./configure --prefix=/usr/local/python310 --enable-shared && make -j && make altinstall
+    cd -
 	cp /usr/local/python310/lib/libpython3.10.so.1.0 /usr/lib64/
 
 	mv_bak /usr/bin/python3
@@ -50,6 +56,6 @@ install_docker(){
     systemctl start docker
 }
 
+install_docker
 install_openssl
 install_python
-install_docker
