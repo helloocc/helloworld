@@ -300,6 +300,7 @@ let g:coc_global_extensions = [
 \ 'coc-lists',
 \ 'coc-markdownlint',
 \ 'coc-powershell',
+\ 'coc-prettier',
 \ 'coc-pyright',
 \ 'coc-snippets',
 \ 'coc-tsserver',
