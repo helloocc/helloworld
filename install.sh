@@ -5,6 +5,12 @@ log_info(){
     echo "[INFO]: $1"
 }
 
+mv_bak(){
+    if [ -f $1 ];then
+        mv $1 $1.bak
+    fi
+}
+
 which_system(){
     if which lsb_release > /dev/null 2>&1;then
         OS=`lsb_release -si`
@@ -169,6 +175,82 @@ others(){
     $clone_dir/install
 }
 
+install_openssl(){
+    log_info 'install openssl.'
+    cd ${WORKSPACE}
+    wget https://www.openssl.org/source/openssl-1.1.1n.tar.gz
+	tar -zxvf openssl-1.1.1n.tar.gz
+    cd openssl-1.1.1n
+    ./config --prefix=/usr/local/openssl && make && make install
+    cd -
+	mv_bak /usr/bin/openssl
+	ln -sf /usr/local/openssl/bin/openssl /usr/bin/openssl
+    mv_bak /usr/local/openssl/lib/libcrypto.so.1.1
+	echo "/usr/local/openssl/lib" >> /etc/ld.so.conf
+	ldconfig -v
+	openssl version
+    rm /usr/local/openssl/lib/libcrypto.so.1.1
+}
+
+install_python(){
+    log_info 'install python.'
+    cd ${WORKSPACE}
+	yum install epel-release -y
+	yum groupinstall "Development tools" -y
+	yum install bzip2-devel ncurses-devel gdbm-devel xz-devel \
+		sqlite-devel libffi-devel libuuid-devel readline-devel \
+		zlib-devel openssl-devel bzip2-devel -y
+
+    version='3.10.7'
+	wget -c https://mirrors.huaweicloud.com/python/${version}/Python-${version}.tgz
+	tar -zxvf Python-${version}.tgz
+    cd Python-${version}
+    sed -i 's/PKG_CONFIG openssl /PKG_CONFIG openssl11 /g' configure
+	./configure --prefix=/usr/local/python310 --enable-shared && make -j && make altinstall
+    cd -
+	cp /usr/local/python310/lib/libpython3.10.so.1.0 /usr/lib64/
+
+	mv_bak /usr/bin/python3
+	mv_bak /usr/bin/python
+	mv_bak /usr/bin/pip3
+	mv_bak /usr/bin/pip
+
+	ln -s /usr/local/python310/bin/python3.10 /usr/bin/python3
+	ln -s /usr/local/python310/bin/pip3.10 /usr/bin/pip3
+	rm /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
+	rm /usr/bin/pip && ln -s /usr/bin/pip3 /usr/bin/pip
+    # 恢复yum
+	# rm /usr/bin/python && ln -s /usr/bin/python2 /usr/bin/python
+	# rm /usr/bin/pip && ln -s /usr/bin/pip2 /usr/bin/pip
+}
+
+install_docker(){
+    log_info 'install docker.'
+    cd ${WORKSPACE}
+    cp docker-ce.repo /etc/yum.repos.d/
+    yum clean all && yum makecache
+    yum install docker-ce -y
+
+    docker_conf_dir=/etc/systemd/system/docker.service.d/
+    mkdir $docker_conf_dir
+    cp ${WORKSPACE}/http-proxy.conf $docker_conf_dir
+    systemctl daemon-reload
+    systemctl restart docker
+}
+
+install_node(){
+    log_info 'install node.'
+    cd ${WORKSPACE}
+    version='v16.20.2'
+    node_dir="node-${version}-linux-x64"
+    wget -c https://nodejs.org/dist/${version}/${node_dir}.tar.gz
+    tar -zxvf ${node_dir}.tar.gz
+
+    rm /usr/bin/node && ln -s ${WORKSPACE}/${node_dir}/bin/node /usr/bin/node
+    rm /usr/bin/npm && ln -s ${WORKSPACE}/${node_dir}/bin/npm /usr/bin/npm
+    rm /usr/bin/npx && ln -s ${WORKSPACE}/${node_dir}/bin/npx /usr/bin/npx
+}
+
 show_usage(){
     cat <<EOF
 sh install.sh -s STAGE [OPTION]
@@ -226,6 +308,11 @@ elif [ $STAGE -eq 2 ]; then
     others
     zsh_conf
 elif [ $STAGE -eq 3 ]; then
+    install_docker
+    install_node
+    install_openssl
+    install_python
+elif [ $STAGE -eq 4 ]; then
     vim
     vim_plugins
 fi

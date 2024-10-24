@@ -88,7 +88,7 @@ Plug 'alfredodeza/pytest.vim'
 Plug 'uiiaoo/java-syntax.vim'
 Plug 'buoto/gotests-vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim'
 call plug#end()
 
 
