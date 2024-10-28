@@ -6,7 +6,7 @@ log_info(){
 }
 
 mv_bak(){
-    if [ -f $1 ];then
+    if [ -f $1 || -d $1 || -L $1 ];then
         mv $1 $1.bak
     fi
 }
@@ -246,9 +246,9 @@ install_node(){
     wget -c https://nodejs.org/dist/${version}/${node_dir}.tar.gz
     tar -zxvf ${node_dir}.tar.gz
 
-    rm /usr/bin/node && ln -s ${WORKSPACE}/${node_dir}/bin/node /usr/bin/node
-    rm /usr/bin/npm && ln -s ${WORKSPACE}/${node_dir}/bin/npm /usr/bin/npm
-    rm /usr/bin/npx && ln -s ${WORKSPACE}/${node_dir}/bin/npx /usr/bin/npx
+    mv_bak /usr/bin/node && ln -s ${WORKSPACE}/${node_dir}/bin/node /usr/bin/node
+    mv_bak /usr/bin/npm && ln -s ${WORKSPACE}/${node_dir}/bin/npm /usr/bin/npm
+    mv_bak /usr/bin/npx && ln -s ${WORKSPACE}/${node_dir}/bin/npx /usr/bin/npx
 }
 
 show_usage(){
@@ -308,11 +308,16 @@ elif [ $STAGE -eq 2 ]; then
     others
     zsh_conf
 elif [ $STAGE -eq 3 ]; then
-    install_docker
-    install_node
-    install_openssl
-    install_python
-elif [ $STAGE -eq 4 ]; then
     vim
     vim_plugins
+elif [ $STAGE -eq 4 ]; then
+    if [ x"$OS" = xCentOS ];then
+        install_docker
+        install_node
+        install_openssl
+        install_python
+    else
+        log_info "Not CentOS system."
+        exit 1
+    fi
 fi
