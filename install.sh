@@ -12,32 +12,57 @@ mv_bak(){
 }
 
 which_system(){
-    if which lsb_release > /dev/null 2>&1;then
-        OS=`lsb_release -si`
-        if [ x"$OS" = xUbuntu ];then
-            log_info "This is Ubuntu system."
-            INSTALL_CMD='sudo apt install -y'
-        elif [ x"$OS" = xCentOS ];then
-            log_info "This is CentOS system."
-            INSTALL_CMD='sudo yum install -y'
-        else
-            exit 1
-        fi
-    else
-        if [[ -n `cat /etc/*-release|grep centos` ]];then
-            log_info "This is CentOS system."
-            INSTALL_CMD='sudo yum install -y'
+    if [[ -n `cat /etc/*-release|grep NAME=|grep -i CentOS` ]];then
+        log_info "This is CentOS system."
+        OS='CentOS'
+        INSTALL_CMD='sudo yum install -y'
+    elif [[ -n `cat /etc/*-release|grep NAME=|grep -i Debian` ]];then
+        log_info "This is Debian system."
+        OS='Debian'
+        INSTALL_CMD='sudo apt install -y'
+    fi
+
+    if [ -z $OS ];then
+        if which lsb_release > /dev/null 2>&1;then
+            OS=`lsb_release -si`
+            if [ x"$OS" = xUbuntu ];then
+                log_info "This is Ubuntu system."
+                INSTALL_CMD='sudo apt install -y'
+            else
+                log_info "Cant't recognize system."
+                exit 1
+            fi
         fi
     fi
 }
 
+set_proxy(){
+	TARGET_IP=$1
+	if [ -z $1 ];then
+		echo 'no target ip'
+		exit 1
+	fi
+	log_info "Target ip: ${TARGET_IP}"
+
+    if [ ! -d ~/.config ];then
+        mkdir ~/.config
+    fi
+
+	scp -r root@${TARGET_IP}:/root/clash ~/
+	scp -r root@${TARGET_IP}:/root/.config/clash ~/.config
+	sudo scp -r root@${TARGET_IP}:/usr/lib/systemd/system/clash.service /usr/lib/systemd/system/
+	sudo systemctl daemon-reload
+	sudo systemctl restart clash
+	sudo systemctl status clash
+}
+
 pre_install(){
     $INSTALL_CMD automake wget zsh git tig
-    if [ x"$OS" = xUbuntu ];then
-        log_info 'ubuntu pre_install'
-        $INSTALL_CMD vim-gtk libevent-dev libncurses5-dev exuberant-ctags
+    if [[ x"$OS" = xUbuntu ]];then
+        $INSTALL_CMD libevent-dev libncurses5-dev exuberant-ctags
+    elif [[ x"$OS" = xDebian ]];then
+        $INSTALL_CMD byacc libevent-dev libncurses5-dev exuberant-ctags
     else
-        log_info 'yum install'
 		yum groupinstall "Development tools" -y
         $INSTALL_CMD epel-release
         $INSTALL_CMD byacc bzip2-devel ctags libevent-devel libffi-devel libuuid-devel libXt-devel libffi-devel libX11-devel \
@@ -45,6 +70,9 @@ pre_install(){
     		openssl-devel sqlite-devel xz-devel zlib-devel
     fi
 
+    if [ ! -d ~/.pip ];then
+        mkdir ~/.pip
+    fi
 	cat <<EOF | sudo tee ~/.pip/pip.conf
 [global]
 index-url=http://mirrors.aliyun.com/pypi/simple/
@@ -129,9 +157,9 @@ vim(){
     sudo make && sudo make install
 
     if [ -f '/usr/bin/vim' ];then
-        mv /usr/bin/vim /usr/bin/vim.bak
+        sudo mv /usr/bin/vim /usr/bin/vim.bak
     fi
-    cp /usr/local/bin/vim /usr/bin/vim
+    sudo cp /usr/local/bin/vim /usr/bin/vim
     log_info 'vim install success!'
 }
 
@@ -300,7 +328,9 @@ done
 WORKSPACE=$(readlink -f $(dirname $0))
 which_system
 
-if [ $STAGE -eq 1 ]; then
+if [ $STAGE -eq 0 ]; then
+    set_proxy $1
+elif [ $STAGE -eq 1 ]; then
     pre_install
 elif [ $STAGE -eq 2 ]; then
     tmux
