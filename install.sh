@@ -57,15 +57,15 @@ set_proxy(){
 }
 
 pre_install(){
-    $INSTALL_CMD automake wget zsh git tig
+    $INSTALL_CMD automake wget zsh git tig byacc
     if [[ x"$OS" = xUbuntu ]];then
-        $INSTALL_CMD libevent-dev libncurses5-dev exuberant-ctags
+        $INSTALL_CMD libevent-dev libncurses5-dev exuberant-ctags build-essential autoconf libtool libssl-dev python3-pkgconfig libcurl4-gnutls-dev curl
     elif [[ x"$OS" = xDebian ]];then
-        $INSTALL_CMD byacc libevent-dev libncurses5-dev exuberant-ctags
+        $INSTALL_CMD libevent-dev libncurses5-dev exuberant-ctags python3-dev
     else
 		yum groupinstall "Development tools" -y
         $INSTALL_CMD epel-release
-        $INSTALL_CMD byacc bzip2-devel ctags libevent-devel libffi-devel libuuid-devel libXt-devel libffi-devel libX11-devel \
+        $INSTALL_CMD bzip2-devel ctags libevent-devel libffi-devel libuuid-devel libXt-devel libffi-devel libX11-devel \
             ruby-devel gtk2-devel gtk3-devel gdbm-devel ncurses-devel python3-devel readline-devel \
     		openssl-devel sqlite-devel xz-devel zlib-devel
     fi
@@ -184,7 +184,7 @@ vim_plugins(){
 
 others(){
     log_info 'install tldr.'
-    sudo pip3 install tldr thefuck
+    sudo pip3 install tldr thefuck --break-system-packages
 
     log_info 'install fasd.'
     local clone_dir=$HOME/fasd
