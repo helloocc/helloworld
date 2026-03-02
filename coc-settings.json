@@ -1,34 +1,24 @@
 {
-    "coc.preferences.rootPatterns": [
-        "requirements.txt",
-        ".git"
-    ],
-    "java.home": "/usr/java/jdk1.8.0_201-amd64",
-    "coc.preferences.formatOnType": true,
-    "coc.preferences.extensionUpdateCheck": "daily",
-    "python.jediEnabled": false,
-    "python.pythonPath": "/usr/bin/python",
-    "python.formatting.provider": "black",
-    "python.formatting.blackArgs": [
-        "--line-length",
-        "80"
-    ],
-    "python.formatting.autopep8Args": [
-        "--max-line-length",
-        "80",
-        "--experimental",
-        "--aggressive"
-    ],
-    "python.linting.banditEnabled": true,
-    "python.linting.flake8Enabled": true,
-    "python.linting.flake8Args": [
-        "--max-line-length=80"
-    ],
-    "python.linting.pylintEnabled": true,
-    "python.linting.pylintArgs": [
-        "--max-line-length=80",
-        "--disable=C0111"
-    ],
-    "http.proxyStrictSSL": false,
-    "html.format.indentInnerHtml": true
+  "coc.preferences.formatOnType": true,
+  "python.pythonPath": "/usr/bin/python",
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length", "80"],
+  "python.formatting.autopep8Args": [
+    "--max-line-length",
+    "80",
+    "--experimental",
+    "--aggressive"
+  ],
+  "python.linting.banditEnabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": ["--max-line-length=80"],
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintArgs": ["--max-line-length=80", "--disable=C0111"],
+  "html.format.indentInnerHtml": true,
+  "prettier.enable": true,
+  "prettier.useTabs": false,
+  "prettier.tabWidth": 2,
+  "prettier.semi": true,
+  "prettier.singleQuote": false,
+  "prettier.printWidth": 80
 }
